@@ -1,10 +1,14 @@
 from rest_framework import serializers
 from .models import Bus
 
-
-class Busserializer(serializers.ModelSerializer):
+class CreateBusSerializer(serializers.ModelSerializer):
     class Meta:
-        model= Bus
-        field=("id", "code", "name")
+        model=Bus
+        fields=("code", "name")
+
+class RetriveBusserializer(serializers.ModelSerializer):
+    class Meta:
+        model=Bus
+        fields=("id", "code", "name")
         
        
