@@ -5,7 +5,7 @@ class Bus(models.Model):
     name = models.CharField(max_length=32, blank=True)
 
     def __str__(self):
-        return self.name
+     return self. name + '' + self.code
 
 class Category(models.Model):
     name = models.CharField(max_length=32, blank=True)
