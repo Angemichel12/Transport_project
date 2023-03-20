@@ -1,8 +1,13 @@
 from django.shortcuts import render
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
+<<<<<<< HEAD
 from .models import Bus
 from core.serializer import RetriveBusserializer, CreateBusSerializer
+=======
+from .models import Bus,Category
+from core.serializer import Categoryserializer,  Busserializer
+>>>>>>> 3dbab3a1656f40f6d4e387c165d65d60132c0dfa
 from rest_framework import status
 
 # Create your views here.
@@ -30,6 +35,7 @@ def Bus_detail(request, id):
         return Response(status=status.HTTP_404_NOT_FOUND)
 
     if request.method == 'GET':
+<<<<<<< HEAD
         serializer = RetriveBusserializer(Buses)
         return Response(serializer.data)
     elif request.method == 'PUT':
@@ -43,3 +49,26 @@ def Bus_detail(request, id):
         return Response(status=status.HTTP_204_NO_CONTENT)
 
     
+=======
+        serializer = Busserializer(Buses)
+        return Response(serializer.data)
+
+
+
+@api_view(['GET'])
+def categories_list(request):
+        if request.method == 'GET':
+            categories = Category.objects.all()
+            serializer = Categoryserializer(categories, many=True)
+            return Response(serializer.data)
+@api_view(['GET'])
+def categories_details(request,id):
+    try:
+        category = Category.objects.get(pk=id)
+    except Category.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    if request.method == 'GET':
+        serializer = Categoryserializer(category)
+        return Response(serializer.data)
+>>>>>>> 3dbab3a1656f40f6d4e387c165d65d60132c0dfa
