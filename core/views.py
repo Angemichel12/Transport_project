@@ -1,12 +1,14 @@
 from django.shortcuts import render
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
-from .models import Bus,Category
-from core.serializer import Categoryserializer,RetriveBusserializer,CreateBusSerializer
+from .models import Bus,Category, Transport
+from core.serializer import Categoryserializer,RetriveBusserializer,CreateBusSerializer, TransportModelSerializer
 from rest_framework import status
+from rest_framework import permissions
+from rest_framework import viewsets
 
 # Create your views here.
-
+@permission_classes([permissions.IsAuthenticated,])
 @api_view(['GET','POST'])
 def Bus_list(request,format=None):
     if request.method=='GET':
@@ -62,4 +64,11 @@ def categories_details(request,id):
     if request.method == 'GET':
         serializer = Categoryserializer(category)
         return Response(serializer.data)
+    
+
+# Viewset for Transport
+
+class TransportViewset(viewsets.ModelViewSet):
+    queryset = Transport.objects.all()
+    serializer_class = TransportModelSerializer
 
