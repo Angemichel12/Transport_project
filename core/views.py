@@ -7,14 +7,14 @@ from rest_framework import status
 
 # Create your views here.
 
-@api_view(['GET'])
+@api_view(['GET, post'])
 def Bus_list(request,format=None):
     if request.method =='GET':
         all_Bus = Bus.objects.all()
         serializer = Busserializer(all_Bus, many=True)
         return Response(serializer.data)
     
-@api_view(['GET'])
+@api_view (['GET', 'delete', 'POST'])
 def Bus_detail(request,id, format=None):
     try:
         Buses = Bus.object.get(pk=id)
@@ -27,14 +27,14 @@ def Bus_detail(request,id, format=None):
 
 
 
-@api_view(['GET'])
-def categories_list(request):
+@api_view(['GET', 'post'])
+def categories_list(request, format=None):
         if request.method == 'GET':
             categories = Category.objects.all()
             serializer = Categoryserializer(categories, many=True)
             return Response(serializer.data)
-@api_view(['GET'])
-def categories_details(request,id):
+@api_view(['GET','delete','POST'])
+def categories_details(request,id, format= None):
     try:
         category = Category.objects.get(pk=id)
     except Category.DoesNotExist:
@@ -43,3 +43,4 @@ def categories_details(request,id):
     if request.method == 'GET':
         serializer = Categoryserializer(category)
         return Response(serializer.data)
+   
